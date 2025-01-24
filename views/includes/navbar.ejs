@@ -1,0 +1,122 @@
+<!-- Include Bootstrap CSS, jQuery, and Bootstrap-datepicker CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top notranslate">
+  <div class="container-fluid compass">
+    <a class="navbar-brand" href="/listings" class="icon"><i class="fa-regular fa-compass"></i></a>
+    <a class="nav-link wanderlust" href="/listings"><b>Wanderlust</b></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ms-auto bg-opacity-75">
+        <form class="d-flex search-container" action="/listings/search" method="get">
+          <!-- Search Bar -->
+          <input class="form-control me-2 search-inp" type="search" placeholder="Search Destinations" name="q" required />
+
+          <!-- Check-in Date with Calendar -->
+          <input type="text" name="checkin" id="checkin" class="form-control me-2 date-picker" placeholder="Check-in" />
+
+          <!-- Check-out Date with Calendar -->
+          <input type="text" name="checkout" id="checkout" class="form-control me-2 date-picker" placeholder="Check-out" />
+
+          <!-- Rooms Section with Increment/Decrement Buttons -->
+          <div class="rooms-section d-flex gap-3">
+            <label for="rooms" class="form-label"></label>
+            <select class="form-select" id="rooms" name="rooms">
+              <option value="1" selected>1 Rooms</option>
+              <option value="2">2 Rooms</option>
+              <option value="3">3 Rooms</option>
+              <option value="4">4 Rooms</option>
+              <option value="5">5 Rooms</option>
+            </select>
+          </div>
+          
+
+          <!-- Search Button -->
+          <button class="btn search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+          </button>
+        </form>
+      </div>
+
+      <div class="navbar-nav ms-auto bg-light p-2 bg-opacity-75">
+        <% if(currUser) { %>
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-user"></i> Profile
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/profile"><i class="fa-solid fa-id-card"></i> View Profile</a></li>
+              <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+          </div>
+        <% } %>
+
+        <a class="nav-link" href="/listings/new"><b>Show Your Space</b></a>
+
+        <% if(!currUser) { %>
+          <a class="nav-link" href="/signup"><b>Sign up</b></a>
+          <a class="nav-link" href="/login"><b>Login</b></a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Include jQuery and Bootstrap-datepicker JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+<!-- Script for increment/decrement functionality -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Increment/Decrement function for Rooms
+    document.getElementById('increment-rooms').addEventListener('click', function() {
+      let rooms = document.getElementById('rooms');
+      if (parseInt(rooms.value) < 5) {
+        rooms.value = parseInt(rooms.value) + 1;
+      }
+    });
+
+    document.getElementById('decrement-rooms').addEventListener('click', function() {
+      let rooms = document.getElementById('rooms');
+      if (parseInt(rooms.value) > 1) {
+        rooms.value = parseInt(rooms.value) - 1;
+      }
+    });
+
+    // Datepicker functionality for check-in and check-out
+    const checkinInput = document.getElementById('checkin');
+    const checkoutInput = document.getElementById('checkout');
+
+    // Initialize the datepickers
+    $(checkinInput).datepicker({
+      format: 'mm/dd/yyyy',
+      autoclose: true,
+      todayBtn: "linked",
+      startDate: new Date(), 
+    });
+
+    $(checkoutInput).datepicker({
+      format: 'mm/dd/yyyy',
+      autoclose: true,
+      todayBtn: "linked",
+      startDate: new Date(), 
+    });
+
+    // Update check-out date to be at least the check-in date
+    $(checkinInput).on('changeDate', function() {
+      let checkinDate = $(checkinInput).datepicker('getDate');
+      $(checkoutInput).datepicker('setStartDate', checkinDate);
+      if ($(checkoutInput).datepicker('getDate') < checkinDate) {
+        $(checkoutInput).datepicker('setDate', checkinDate);
+      }
+    });
+  });
+</script>
+
+
+

@@ -1,0 +1,69 @@
+<% layout('/layouts/boilerplate.ejs') -%>
+<div class="row mt-3">
+    <div class="col-8 offset-2">
+        <br>
+        <h3>Edit Your Listing</h3>
+        <form action="/listings/<%= listing._id %>?_method=PUT" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
+        <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" name="listing[title]" value="<%= listing.title %>" class="form-control" required> 
+        <div class="valid-feedback">
+            Title Looks good!
+        </div>
+        </div>
+
+        <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea name="listing[description]" class="form-control" required><%= listing.description %></textarea>
+        <div class="invalid-feedback"> Please enter a short description </div>
+        </div>
+
+        <div class="mb-3">
+            original image <br>
+          <img src="<%=  originalImageUrl %>">
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload New Image</label>
+            <input type="file" name="listing[image]"  class="form-control" > 
+        </div>
+
+        
+        <div class="row">
+            <div class="mb-3 col-md-6">
+            <label for="price" class="form-label">Price</label>
+            <input  name="listing[price]" placeholder="1200" value="<%= listing.price %>"  class="form-control" required>
+            <div class="invalid-feedback">Price should be valid</div>
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="category" class="form-label " >Choose a category</label>
+                <select class="form-select form-select-sm" aria-label="Small select example" name="listing[category]" value="<%= listing.category %>" >
+                    <option value="Trending">Trending</option>
+                    <option value="Mountains">Mountains</option>
+                    <option value="Camping">Camping</option>
+                    <option value="Rooms">Rooms</option>
+                    <option value="Iconic Cities">Iconic Cities</option>
+                    <option value="Amazing Nature">Amazing Nature</option>
+                    <option value="Farms">Farms</option>
+                    <option value="Arctic">Arctic</option>
+                    <option value="Boats">Boats</option>
+                    <option value="Domes">Domes</option>
+                </select>    
+            </div>
+            </div>
+    
+            <div class="row">
+            <div class="mb-3 col-md-6">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" name="listing[country]" value="<%= listing.country %>" placeholder="India" class="form-control" required> 
+            <div class="invalid-feedback">country name should be valid</div>
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" name="listing[location]" value="<%= listing.location %>" placeholder="Jaipur, Rajasthan" class="form-control" required> 
+                <div class="invalid-feedback">Location should be valid</div>
+                </div>
+            </div>
+            <button class="btn btn-dark edit-btn">Edit</button>
+        </form>
+    </div>
+</div>

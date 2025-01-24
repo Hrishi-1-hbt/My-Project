@@ -1,0 +1,156 @@
+<% layout('/layouts/boilerplate.ejs') -%>
+<link rel="stylesheet" href="/css/style.css">
+
+
+<div class="top-section d-flex align-items-center justify-content-between mb-3">
+  <div class="categories-list d-flex gap-3">
+    <a href="/listings/filter/Trending">
+      <div class="filter">
+        <div><i class="fa-solid fa-fire"></i></div>
+        <p>Trending</p>
+      </div>
+    </a>
+    <a href="/listings/filter/Rooms">
+      <div class="filter">
+        <div><i class="fa-solid fa-bed"></i></div>
+        <p>Rooms</p>
+      </div>
+    </a>
+    <a href="/listings/filter/Mountains">
+      <div class="filter">
+        <div><i class="fa-solid fa-mountain-sun"></i></i></div>
+        <p>Mountains</p>
+      </div>
+      </a>
+      <a href="/listings/filter/Farms">
+        <div class="filter">
+          <div><i class="fa-solid fa-tractor"></i></div>
+          <p>Farms</p>
+        </div>
+      </a>
+     
+    <a href="/listings/filter/Iconic Cities">
+      <div class="filter">
+        <div><i class="fa-solid fa-mountain-city"></i></div>
+        <p>Iconic Cities</p>
+      </div>
+    </a>
+    <a href="/listings/filter/Camping">
+      <div class="filter">
+        <div><i class="fa-solid fa-campground"></i></div>
+        <p>Camping</p>
+      </div>
+    </a>
+    <a href="/listings/filter/Amazing Nature">
+      <div class="filter">
+        <div><i class="fa-solid fa-person-swimming"></i></div>
+        <p>Amazing Nature</p>
+      </div>
+    </a>
+    
+  </div>
+
+  
+  <div class="d-flex align-items-center gap-3">
+    <button class="btn btn-primary" id="filterDropdownBtn">Filter</button>
+
+    
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+      <label class="form-check-label" for="flexSwitchCheckDefault">Show GST</label>
+    </div>
+  </div>
+</div>
+
+
+
+<div id="filterDropdown" class="dropdown-menu mt-2" aria-labelledby="filterDropdownBtn">
+  <form action="/listings/filter" method="GET" id="basicFacilitiesForm">
+    <h5>Basic Facilities</h5>
+    <div>
+      <input type="checkbox" name="facilities" value="WiFi" id="wifi">
+      <label for="wifi">WiFi</label>
+    </div>
+    <div>
+      <input type="checkbox" name="facilities" value="Parking" id="parking">
+      <label for="parking">Parking</label>
+    </div>
+    <div>
+      <input type="checkbox" name="facilities" value="Swimming Pool" id="swimmingPool">
+      <label for="swimmingPool">Swimming Pool</label>
+    </div>
+    <div>
+      <input type="checkbox" name="facilities" value="Gym" id="gym">
+      <label for="gym">Gym</label>
+    </div>
+    <div>
+      <input type="checkbox" name="facilities" value="Air Conditioning" id="ac">
+      <label for="ac">Air Conditioning</label>
+    </div>
+    <div>
+      <input type="checkbox" name="facilities" value="Restaurant" id="restaurant">
+      <label for="restaurant">Restaurant</label>
+    </div>
+    <div>
+      <input type="checkbox" name="facilities" value="Bar" id="bar">
+      <label for="bar">Bar</label>
+    </div>
+    <div>
+      <input type="checkbox" name="facilities" value="Spa" id="spa">
+      <label for="spa">Spa</label>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Apply Filters</button>
+  </form>
+</div>
+
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+  <% for(listing of allListings) { %>
+    <div class="col mb-4">
+      <a href="/listings/<%= listing._id %>" class="listing-link">
+        <div class="card listing-card">
+          <img src="<%= listing.image.url %>" class="card-img-top" alt="listing-image" style="height: 20rem;">
+          <div class="card-body">
+            <h5 class="card-title"><%= listing.title %></h5>
+            <p class="card-text">
+              &#8377; <%= listing.price.toLocaleString("en-IN") %> /night
+              <i class="tax-info"> +18% GST</i>
+            </p>
+            <p class="card-text"><%= listing.description.slice(0, 100) %>...</p>
+            
+            <a href="/bookings/<%= listing._id %>" class="btn btn-primary">Book Now</a>
+          </div>
+        </div>
+      </a>
+    </div>
+  <% } %>
+</div>
+
+
+<script>
+  const filterDropdownBtn = document.getElementById('filterDropdownBtn');
+  const filterDropdown = document.getElementById('filterDropdown');
+  const taxSwitch = document.getElementById('flexSwitchCheckDefault');
+
+  
+  filterDropdownBtn.addEventListener('click', () => {
+    if (filterDropdown.style.display === 'block') {
+      filterDropdown.style.display = 'none';
+    } else {
+      filterDropdown.style.display = 'block';
+    }
+  });
+
+  
+  taxSwitch.addEventListener('click', () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for (let info of taxInfo) {
+      if (info.style.display !== "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
+      }
+    }
+  });
+</script>
+

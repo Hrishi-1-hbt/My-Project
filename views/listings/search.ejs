@@ -1,0 +1,118 @@
+<% layout('/layouts/boilerplate.ejs') -%>
+<link rel="stylesheet" href="/css/style.css">
+       <div id = "filters">
+        <a href="/listings/filter/Trending">
+        <div class="filter">
+         <div> <i class="fa-solid fa-fire"></i> </div>
+         <p>Trending</p>
+        </div>
+       </a>
+
+       <a href="/listings/filter/Rooms">
+        <div class="filter">
+          <div> <i class="fa-solid fa-bed"></i></div>
+          <p>Rooms</p>
+         </div>
+       </a>
+
+       <a href="/listings/filter/Iconic Cities">
+         <div class="filter">
+          <div><i class="fa-solid fa-mountain-city"></i></div>
+          <p>Iconic Cities</p>
+        </div>
+      </a>
+      
+        <a href="/listings/filter/Mountains">
+        <div class="filter">
+          <div><i class="fa-solid fa-mountain-sun"></i></i></div>
+          <p>Mountains</p>
+        </div>
+        </a>
+
+        <a href="/listings/filter/Camping">
+        <div class="filter">
+          <div><i class="fa-solid fa-campground"></i></div>
+          <p>Camping</p>
+        </div>
+      </a>
+
+      <a href="/listings/filter/Amazing Nature">
+        <div class="filter">
+          <div><i class="fa-solid fa-person-swimming"></i></div>
+          <p>Amazing Nature</p>
+        </div>
+      </a>
+      
+
+      <a href="/listings/filter/Farms">
+        <div class="filter">
+          <div><i class="fa-solid fa-tractor"></i></div>
+          <p>Farms</p>
+        </div>
+      </a>
+
+      <a href="/listings/filter/Arctic">
+        <div class="filter">
+          <div><i class="fa-solid fa-snowflake"></i></div>
+          <p>Arctic</p>
+        </div>
+      </a>
+
+      <a href="/listings/filter/Boats">
+        <div class="filter">
+          <div><i class="fa-solid fa-ship"></i></div>
+          <p>Boats</p>
+        </div>
+      </a> 
+
+      <a href="/listings/filter/Domes">
+        <div class="filter">
+          <div><i class="fa-solid fa-igloo"></i></div>
+          <p>Domes</p>
+        </div>
+      </a>
+
+        <div class="tax-toggle">
+          <div class="form-check-reverse form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <% for(let result of results) {%>
+        <a class="first" href="/listings/<%= result._id %>">
+          <div class="card col listing-card">
+            <img
+              src="<%= result.image.url %>"
+              class="card-img-top"
+              alt="listing_image"
+              style="height: 20rem"
+            />
+            <div class="card-img-overlay"></div>
+            <div class="card-body">
+              <h5 class="card-title"><%= result.title %></h5>
+              <div class="price-container">
+
+  <script>
+      let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+      taxSwitch.addEventListener("click", () => {
+        let taxInfo = document.getElementsByClassName("tax-info");
+        for(info of taxInfo) {
+          if(info.style.display != "inline") {
+            info.style.display = "inline";
+          } else {
+            info.style.display = "none";
+          }
+        }
+      })
+  </script>
+
+</div>
+</div>
+</div>
+</a>
+<% } %>
+</div> 

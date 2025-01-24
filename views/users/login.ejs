@@ -1,0 +1,53 @@
+<% layout("../views/layouts/boilerplate.ejs") %>
+
+<div class="row mt-3">
+  <div class="col-6 offset-3">
+    
+      <h1 class="mb-3">Login</h1>
+      <form action="/login" method="post" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            class="form-control"
+            required />
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="form-control"
+            required />
+        </div>
+
+        <button class="btn btn-success w-100 mb-3">Login</button>
+      </form>
+
+      <!-- OR Separator -->
+      <div class="d-flex align-items-center my-3">
+        <hr class="flex-grow-1">
+        <span class="mx-2 text-muted">OR</span>
+        <hr class="flex-grow-1">
+      </div>
+
+      <!-- Google Login Button -->
+      <a href="/auth/google" class="btn btn-light w-100 border border-secondary d-flex align-items-center justify-content-center">
+        <img src="./google.jpg" alt="Google Icon" style="width: 20px; height: 20px;" class="me-2">
+        Login with Google
+      </a>
+
+      <!-- Signup Link -->
+      <div class="text-center mt-3">
+        <p class="mb-0">
+          Don't have an account? 
+          <a href="/signup" class="text-primary text-decoration-none">Create Account</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

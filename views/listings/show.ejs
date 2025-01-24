@@ -1,0 +1,118 @@
+<%- layout('/layouts/boilerplate.ejs') %>
+
+<script>
+    let mapToken = "<%= process.env.MAP_TOKEN %>";
+    console.log(mapToken);
+    let coordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
+</script>
+
+<!-- Google Translate widget -->
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'hi,kn,ta,te,ml,mr,bn,gu,pa,or,as,sd,si',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
+</script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<body>
+    <div class="row">
+        <div class="col-8 offset-3 mt-3 notranslate">
+            <h3><b><%= listing.title %></b></h3>
+        </div>
+
+        <div class="col-6 offset-3 show-card">
+            <div class="card listing-card">
+                <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing-image">
+            </div>
+            <div class="card-body">
+                <div class="notranslate">
+                    <p class="card-text">Hosted by - <%= listing.owner.username %></p>
+                </div>
+                <p><%= listing.description %></p>
+                <p>&#8377; <%= listing.price.toLocaleString("en-IN") %></p>
+                <p><%= listing.location %></p>
+                <p><%= listing.country %></p>
+            </div>
+        </div>
+
+        <br>
+        <div class="btns mt-2 mb-2 notranslate">
+            <% if (currUser && listing.owner._id.equals(currUser._id)) { %>
+                <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit</a>
+                <br>
+                <form method="post" action="/listings/<%= listing._id %>?_method=DELETE" class="d-inline">
+                    <button class="btn btn-dark offset-5">Delete</button>
+                </form>
+            <% } %>
+            <% if (currUser && !listing.owner._id.equals(currUser._id)) { %>  
+                <a href="/listings/<%= listing._id %>/book" class="btn btn-primary offset-5">Book</a>
+            <% } %>
+        </div>
+
+        <div class="col-8 offset-1 offset-md-3 mb-3 mt-3 notranslate">
+            <% if (currUser) { %>
+                <hr>
+                <h4>Leave a Review</h4>
+                <form action="/listings/<%= listing._id %>/reviews" method="post" class="needs-validation" novalidate>
+                    <div class="mb-3 mt-3">
+                        <label for="rating" class="form-label">Rating</label>
+                        <fieldset class="starability-slot">
+                            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                            <label for="first-rate1" title="Terrible">1 star</label>
+                            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                            <label for="first-rate2" title="Not good">2 stars</label>
+                            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                            <label for="first-rate3" title="Average">3 stars</label>
+                            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                            <label for="first-rate4" title="Very good">4 stars</label>
+                            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                            <label for="first-rate5" title="Amazing">5 stars</label>
+                        </fieldset>
+                        <label for="Comment" class="form-label notranslate">Comments</label>
+                        <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+                        <div class="invalid-feedback notranslate">Please add some comment for review</div>
+                    </div>
+                    <button class="btn btn-outline-dark notranslate">Submit</button>
+                </form>
+                <hr>
+            <% } %>
+
+            <% if (listing.reviews.length > 0) { %>
+                <p><b>All reviews </b></p>
+                <div class="row notranslate">
+                    <% for (let review of listing.reviews) { %>
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= review.author.username %></h5>
+                                    <p class="starability-result card-text" data-rating=<%= review.rating %>></p>
+                                    <hr class="mb-0">
+                                    <p class="card-text mb-3"><%= review.comment %></p>
+                                    <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                        <button class="btn btn-dark btn-sm mb-3">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>     
+            <% } %>
+
+            <!-- <div class="col-8 mt-3">
+                <hr>
+                <h4 class="mb-3">Where you will be:</h4>
+                <div id="map" class="mb-6 col-8" style="height: 400px; width: 400px;"></div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <script src="/js/map.js"></script> -->
+</body>
