@@ -1,4 +1,4 @@
-Wanderlust
+<!-- Wanderlust
 
 https://wonderlust-1-40ju.onrender.com/listings
 Project Description:
@@ -43,4 +43,4 @@ Use interactive maps to discover new places
 Enjoy a seamless user experience with robust error handling
 Contributing:
 
-Contributions are welcome! Please fork the repository, make changes, and submit a pull request.
+Contributions are welcome! Please fork the repository, make changes, and submit a pull request. -->
