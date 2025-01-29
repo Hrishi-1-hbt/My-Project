@@ -118,7 +118,10 @@
             </p>
             <p class="card-text"><%= listing.description.slice(0, 100) %>...</p>
             
-            <a href="/bookings/<%= listing._id %>" class="btn btn-primary">Book Now</a>
+            <form action="/bookings/<%= listing._id %>" method="POST">
+              <button type="submit" class="btn btn-primary">Book Now</button>
+            </form>
+            
           </div>
         </div>
       </a>

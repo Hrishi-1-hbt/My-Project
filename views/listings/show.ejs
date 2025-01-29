@@ -7,38 +7,9 @@
 </script>
 
 <!-- Google Translate widget -->
-<div id="google_translate_element ">
-<select id="languageSelect" onchange="translatePage(this.value)">
-    <option value="">Select Language</option>
-    <option value="hi">Hindi</option>
-    <option value="kn">Kannada</option>
-    <option value="ta">Tamil</option>
-    <option value="te">Telugu</option>
-    <option value="ml">Malayalam</option>
-    <option value="mr">Marathi</option>
-    <option value="bn">Bengali</option>
-    <option value="gu">Gujarati</option>
-    <option value="pa">Punjabi</option>
-    <option value="or">Odia</option>
-    <option value="as">Assamese</option>
-    <option value="sd">Sindhi</option>
-    <option value="si">Sinhala</option>
-</select>
-</div>
-
-<script>
-    function translatePage(language) {
-        var translateElement = new google.translate.TranslateElement({
-            pageLanguage: 'en',
-            includedLanguages: language,
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
-    }
-</script>
 
 
 
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <body>
     <div class="row">
@@ -69,10 +40,19 @@
                 <form method="post" action="/listings/<%= listing._id %>?_method=DELETE" class="d-inline">
                     <button class="btn btn-dark offset-5">Delete</button>
                 </form>
-                
             <% } %>
+            <div class="btns col-1 offset-1 notranslate"> 
+                <form action="/bookings/<%= listing._id %>" method="POST">
+                    <button type="submit" class="btn btn-primary">Book Now</button>
+                </form>
+            </div>
             
         </div>
+       
+       
+        
+        
+          
 
         <div class="col-8 offset-1 offset-md-3 mb-3 mt-3 notranslate">
             <% if (currUser) { %>
@@ -129,9 +109,9 @@
                 <hr>
                 <h4 class="mb-3">Where you will be:</h4>
                 <div id="map" class="mb-6 col-8" style="height: 400px; width: 400px;"></div>
-            </div>
+            </div>-->
         </div>
-    </div> -->
+    </div> 
 
     <!-- <script src="/js/map.js"></script> -->
 </body>

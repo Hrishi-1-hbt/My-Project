@@ -43,6 +43,58 @@ module.exports.logout = (req, res, next) => {
     res.redirect("/listings");
   });
 };
+module.exports.renderProfile = async (req, res) => {
+  try {
+      const user = await User.findById(req.user._id)
+          .populate({
+              path: 'listings',
+              select: 'title price image location'
+          })
+          .populate({
+              path: 'bookings',
+              populate: {
+                  path: 'listing',
+                  select: 'title image'
+              }
+          });
+
+      res.render("users/profile", { user });
+  } catch (error) {
+      req.flash("error", "Error loading profile");
+      res.redirect("/listings");
+  }
+};
+
+module.exports.updateProfile = async (req, res) => {
+  try {
+      const { firstName, lastName, email, phoneNumber, bio } = req.body;
+      const updateData = {
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          bio
+      };
+
+      // Handle profile photo upload
+      if (req.file) {
+          updateData.profilePhoto = req.file.path.replace("public", "");
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(
+          req.user._id,
+          updateData,
+          { new: true, runValidators: true }
+      );
+
+      req.flash("success", "Profile updated successfully");
+      res.redirect("/profile");
+  } catch (error) {
+      req.flash("error", error.message);
+      res.redirect("/profile");
+  }
+};
+
 
 // Google Authentication Handlers
 module.exports.googleCallback = async (req, res) => {

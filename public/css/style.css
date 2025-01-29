@@ -421,3 +421,66 @@ body {
     background-color: #007bff;
     color: white;
   }
+/* Navbar container adjustments */
+.navbar .container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+/* Align navigation links and search form in a single row */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 15px; /* Adjust spacing between elements */
+}
+
+/* Ensures the search container stays aligned */
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+/* Adjust input field sizes to fit in one row */
+.search-container input, .search-container select {
+  width: auto;
+  min-width: 140px;
+}
+
+/* Ensure search button is properly sized */
+.search-btn {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+/* Align Google Translate dropdown */
+#google_translate_element {
+  min-width: 150px;
+}
+
+/* Profile & Auth links alignment */
+.navbar-nav .nav-item {
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-container {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .search-container input, .search-container select {
+    width: 100%;
+  }
+}
