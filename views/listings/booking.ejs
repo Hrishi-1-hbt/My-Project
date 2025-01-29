@@ -7,7 +7,7 @@
   <p><strong>Description:</strong> <%= listing.description %></p>
 
   <!-- Booking Form -->
-  <form action="/bookings/confirm/<%= listing._id %>" method="POST">
+  <form action="/bookings/<%= listing._id %>" method="POST">
     <div class="mb-3">
       <label for="checkin" class="form-label">Check-in Date:</label>
       <input type="date" id="checkin" name="checkin" class="form-control" required>
@@ -21,3 +21,5 @@
     <button type="submit" class="btn btn-primary">Confirm Booking</button>
   </form>
 </div>
+
+   

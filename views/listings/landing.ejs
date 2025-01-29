@@ -1,0 +1,62 @@
+<% layout('/layouts/boilerplate.ejs') -%>
+<link rel="stylesheet" href="/css/style.css">
+
+<div class="landing-page">
+  <div class="search-container d-flex justify-content-center align-items-center">
+    <% if (typeof alert !== "undefined") { %>
+      <div class="alert alert-warning"><%= alert %></div>
+    <% } %>
+    <form action="/listings/search" method="GET" class="d-flex flex-column   gap-2">
+      <input type="text" name="q" class="search-input" placeholder="Where do you want to go?" required>
+
+      
+      <button type="submit" class="search-button">Search</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('https://tse4.mm.bing.net/th?id=OIP.gmvVsCjijLiZUqnRNistuwHaEo&pid=Api&P=0&h=180') no-repeat center center/cover;
+    backdrop-filter: blur(10px);
+  }
+  .landing-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .search-container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    
+  }
+  .search-input {
+    padding: 15px 25px;
+    width: 750px;
+    font-size: 18px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .search-button {
+    margin-top: 10px;
+    padding: 12px 25px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #6a11cb;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+  }
+</style>

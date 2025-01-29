@@ -1,6 +1,72 @@
 <!-- Include Bootstrap CSS, jQuery, and Bootstrap-datepicker CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<style>
+  /* Navbar container adjustments */
+  .navbar .container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+
+  /* Align navigation links and search form in a single row */
+  .navbar-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 15px; /* Adjust spacing between elements */
+  }
+
+  /* Ensures the search container stays aligned */
+  .search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+
+  /* Adjust input field sizes to fit in one row */
+  .search-container input, .search-container select {
+    width: auto;
+    min-width: 140px;
+  }
+
+  /* Ensure search button is properly sized */
+  .search-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  /* Align Google Translate dropdown */
+  #google_translate_element {
+    min-width: 150px;
+  }
+
+  /* Profile & Auth links alignment */
+  .navbar-nav .nav-item {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 992px) {
+    .navbar-nav {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .search-container {
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .search-container input, .search-container select {
+      width: 100%;
+    }
+  }
+
+</style>
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top notranslate">
   <div class="container-fluid compass">
@@ -23,7 +89,7 @@
           <input type="text" name="checkout" id="checkout" class="form-control me-2 date-picker" placeholder="Check-out" />
 
           <!-- Rooms Section with Increment/Decrement Buttons -->
-          <div class="rooms-section d-flex gap-3">
+          <div class="rooms-section d-flex gap-2">
             <label for="rooms" class="form-label"></label>
             <select class="form-select" id="rooms" name="rooms">
               <option value="1" selected>1 Rooms</option>
@@ -33,7 +99,6 @@
               <option value="5">5 Rooms</option>
             </select>
           </div>
-          
 
           <!-- Search Button -->
           <button class="btn search-btn" type="submit">
@@ -42,7 +107,27 @@
         </form>
       </div>
 
-      <div class="navbar-nav ms-auto bg-light p-2 bg-opacity-75">
+      <% if(currUser) { %>
+        <div id="google_translate_element p-1 ">
+          <select id="languageSelect" onchange="translatePage(this.value)">
+            <option value="hi">Hindi</option>
+            <option value="kn">Kannada</option>
+            <option value="ta">Tamil</option>
+            <option value="te">Telugu</option>
+            <option value="ml">Malayalam</option>
+            <option value="mr">Marathi</option>
+            <option value="bn">Bengali</option>
+            <option value="gu">Gujarati</option>
+            <option value="pa">Punjabi</option>
+            <option value="or">Odia</option>
+            <option value="as">Assamese</option>
+            <option value="sd">Sindhi</option>
+            <option value="si">Sinhala</option>
+          </select>
+        </div>
+      <% } %>
+
+      <div class="navbar-nav ms-auto bg-light p-1 bg-opacity-75">
         <% if(currUser) { %>
           <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -117,6 +202,3 @@
     });
   });
 </script>
-
-
-
